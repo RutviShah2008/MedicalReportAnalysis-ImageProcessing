@@ -1,0 +1,9 @@
+No TestParameter Minvalue Maxvalue Fminvalue Fmaxvalue Result
+1 Color yellow(light/pale) yellow(dark/deep) light/pale dark/deep yelow
+2 Clariti clearorcloudy clearorcloudy clearorcloudy cleaorcloudy clear
+3 pH 4.5 8 4.5 8 5.5
+4 Specificgravity 1.005 1 1.005 1.025 1.004
+5 Glucos 0 130 0 130 100
+6 Nitrits Negative Negative Negative Negative Negative
+7 Bilirubin Negative Negative Negative Negative Negative
+8 Urobilirubin 0.5 1 0.5 1 0.7

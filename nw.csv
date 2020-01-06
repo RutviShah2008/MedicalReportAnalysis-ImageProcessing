@@ -1,0 +1,30 @@
+Fminvalue Fmaxvalue 
+No Test Parameter Minvalue Maxvalue Result 
+12.3 15.3 
+1 Hb 14 17.4 15.4 
+2 RBC 4.5 5.9 4.5 5.1 5.24 
+ 
+3 P.C.V 41.5 50.4 36 45 44.2 
+4 M.C.V 80 96 80 96 84.4 
+5 M.C.H 27.5 33.2 27.5 33.2 29.4 
+6 M.C.H.C 33.4 35.5 33.4 35.5 34.8 
+7 RDW-SD 35.1 43.9 36.4 46.3 37.4 
+8 Total WBC 4000 12000 4000 12000 4590 
+9 ESR Manual 0 15 0 20 03 
+10 Platelets 150000 400000 150000 400000 253000 
+11 Polymorphs 40 80 40 80 41 
+12 Lymphocytes 20 40 20 40 50 
+1 6 
+13 Eosinophil 1 6 3 
+2 10 
+14 Monocytes 2 10 6 
+15 Polymorphs 1800 7000 1800 7000 1882 
+  
+ (Abs. Value)    
+16 Lymphocytes 1000 4800 1000 4800 2295 
+ (Abs. Value)      
+17 Eosinophil 0 450 0 450 138 
+ (Abs. Value)      
+18 Monocytes 0 800 0 8000 275 
+  
+ (Abs. Value)    

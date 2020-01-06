@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+
+
+public partial class BasicFileInfo : System.Web.UI.Page
+{
+    Class1 obj = new Class1();
+    int x;
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        SqlParameter Id = new SqlParameter("@Id", SqlDbType.Int);
+        txtId.Text = obj.max("MaxBasicFileUploadId", Id).ToString();
+        Label5.Visible = false;
+        errlbl.Visible = false;
+    }
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        SqlParameter Id = new SqlParameter("@Id", txtId.Text);
+        SqlParameter FileUploadId = new SqlParameter("@FileUploadId", ddlFileUploadId.Text);
+        SqlParameter content = new SqlParameter("@Content", txtContent.Text);
+        //SqlParameter sid = new SqlParameter("@StateId", ddlStateId.SelectedValue);
+
+        SqlParameter[] pdata = new SqlParameter[3] { Id, FileUploadId, content };
+        x = obj.insert("BasicFileInfoInsertSp", pdata);//class method
+
+
+        if (x != 0)
+        {
+            errlbl.Visible = true;
+            errlbl.Text = "Successfully Inserted";
+            //txtCityName.Text = null;
+            Response.Redirect("BasicFileInfo.aspx");
+
+        }
+        else
+        {
+            errlbl.Visible = true;
+            errlbl.Text = "Invalid INfo";
+        }
+
+    }
+}

@@ -1,0 +1,135 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Configuration;
+using System.Data;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.IO;
+public partial class Default3 : System.Web.UI.Page
+{
+    string Extension = "";
+    string FileName = "";
+    string FolderPath = "";
+    string FilePath = "";
+    string isHDR = "";
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        if (FileUpload1.HasFile)
+        {
+            string FileName = Path.GetFileName(FileUpload1.PostedFile.FileName);
+             Extension = Path.GetExtension(FileUpload1.PostedFile.FileName);
+            string FolderPath = ConfigurationManager.AppSettings["FolderPath"];
+
+            string FilePath = Server.MapPath(FolderPath + FileName);
+            FileUpload1.SaveAs(FilePath);
+            Import_To_Grid(FilePath, Extension, "Yes");
+        }
+    }
+
+    private void Import_To_Grid(string FilePath, string Extension, string isHDR)
+    {
+        string conStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\shah\\Desktop\\temp.xlsx;Extended Properties='Excel 8.0 Xml;HDR=YES'";
+        //switch (Extension)
+    //    {
+     //       case ".xls": //Excel 97-03
+      //          conStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\shah\\Desktop\\temp.xlsx;Extended Properties='Excel 8.0 Xml;HDR=YES'";
+                //ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+      //          break;
+       //     case ".xlsx": //Excel 07
+       //         conStr ="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\shah\\Desktop\\temp.xlsx;Extended Properties='Excel 8.0 Xml;HDR=YES'"; 
+                    //ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
+        //        break;
+        //}
+        conStr = String.Format(conStr, FilePath, isHDR);
+        OleDbConnection connExcel = new OleDbConnection(conStr);
+        OleDbCommand cmdExcel = new OleDbCommand();
+        OleDbDataAdapter oda = new OleDbDataAdapter();
+        DataTable dt = new DataTable();
+        cmdExcel.Connection = connExcel;
+
+        //Get the name of First Sheet
+        connExcel.Open();
+        DataTable dtExcelSchema;
+        dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+        string SheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+        connExcel.Close();
+
+        //Read Data from First Sheet
+        connExcel.Open();
+        cmdExcel.CommandText = "SELECT * From [" + SheetName + "]";
+        oda.SelectCommand = cmdExcel;
+        oda.Fill(dt);
+        connExcel.Close();
+
+
+
+        using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True"))
+        {
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                SqlCommand cmd = new SqlCommand("Insert Into REPORTDATA values(" + dt.Rows[i][0] + ",'" + dt.Rows[i][1] + "','" + dt.Rows[i][2] + "','" + dt.Rows[i][3] + "','" + dt.Rows[i][4] + "','" + dt.Rows[i][5] + "')", con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+
+    }
+
+    protected void Button1_Click1(object sender, EventArgs e)
+    {
+        string conStr = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\Users\\shah\\Desktop\\temp.xlsx;Extended Properties='Excel 8.0 Xml;HDR=YES'";
+
+        //switch (Extension)
+        //{
+        //    case ".xls": //Excel 97-03
+        //        conStr = ConfigurationManager.ConnectionStrings["Excel03ConString"].ConnectionString;
+        //        break;
+        //    case ".xlsx": //Excel 07
+       //         conStr = ConfigurationManager.ConnectionStrings["Excel07ConString"].ConnectionString;
+       //         break;
+       // }
+ 
+        conStr = String.Format(conStr, FilePath, isHDR);
+        OleDbConnection connExcel = new OleDbConnection(conStr);
+        OleDbCommand cmdExcel = new OleDbCommand();
+        OleDbDataAdapter oda = new OleDbDataAdapter();
+        DataTable dt = new DataTable();
+        cmdExcel.Connection = connExcel;
+
+        //Get the name of First Sheet
+        connExcel.Open();
+        DataTable dtExcelSchema;
+        dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+        string SheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+        connExcel.Close();
+
+        //Read Data from First Sheet
+        connExcel.Open();
+        cmdExcel.CommandText = "SELECT * From [" + SheetName + "]";
+        oda.SelectCommand = cmdExcel;
+        oda.Fill(dt);
+        connExcel.Close();
+
+
+
+        using (SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Database.mdf;Integrated Security=True"))
+        {
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                SqlCommand cmd = new SqlCommand("Insert Into salinfo values(" + dt.Rows[i][0] + ",'" + dt.Rows[i][1] + "','" + dt.Rows[i][2] + "','" + dt.Rows[i][3] + "','" + dt.Rows[i][4] + "','" + dt.Rows[i][5] + "')", con);
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+        }
+    }
+}

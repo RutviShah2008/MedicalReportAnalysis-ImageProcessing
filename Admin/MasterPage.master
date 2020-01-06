@@ -1,0 +1,232 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Admin_MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<title>MRAIP</title>
+<meta charset="utf-8"/>
+<link rel="icon" href="images/favicon.ico"/>
+<link rel="shortcut icon" href="images/favicon.ico"/>
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="css/slider.css"/>
+<script src="js/jquery.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/superfish.js"></script>
+<script src="js/jquery.equalheights.js"></script>
+<script src="js/tms-0.4.1.js"></script>
+<script src="js/jquery.carouFredSel-6.1.0-packed.js"></script>
+<script src="js/jquery.ui.totop.js"></script>
+<script>
+    $(window).load(function () {
+        $('.slider')._TMS({
+            show: 0,
+            pauseOnHover: false,
+            prevBu: '.prev',
+            nextBu: '.next',
+            playBu: false,
+            duration: 800,
+            preset: 'fade',
+            easing: 'easeOutQuad',
+            pagination: true, //'.pagination',true,'<ul></ul>'
+            pagNums: false,
+            slideshow: 8000,
+            numStatus: false,
+            banners: 'fade',
+            waitBannerAnimation: false,
+            progressBar: false
+        })
+    });
+    $(window).load(
+        function () {
+            $('.carousel1').carouFredSel({
+                auto: false,
+                prev: '.prev1',
+                next: '.next1',
+                width: 960,
+                items: {
+                    visible: {
+                        min: 4,
+                        max: 4
+                    },
+                },
+                responsive: false,
+                scroll: 1,
+                mousewheel: false,
+                swipe: {
+                    onMouse: false,
+                    onTouch: false
+                }
+            });
+        });
+</script>
+    <script src="jquery-2.2.0.min.js"></script>
+
+<script type = "text/javascript">
+
+    var set = setInterval(checkSession, 3000);
+
+    function checkSession() {
+        xyz = "admin";
+        $.ajax({
+
+            type: "POST",
+            url: "Default3.aspx/HelloWorld",
+            data: "{'name':'" + xyz + "'}",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: OnSuccess,
+            failure: function (err) {
+                alert(err);
+            }
+        });
+    }
+
+    function OnSuccess(data) {
+        if (data.d == "true")
+            window.location.href = "../Logout.aspx";
+        //alert(data.d);
+    }
+
+</script>
+
+     
+  
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<link rel="stylesheet" media="screen" href="css/ie.css">
+<![endif]-->
+<asp:ContentPlaceHolder id="head" runat="server">
+</asp:ContentPlaceHolder>
+</head>
+<body>
+    <header>
+  <div class="container_12">
+    <div class="grid_12" style="background-color:black">
+      <h1><a href="Home.aspx"><img src="images/CaptureFINAL.PNG" alt=""/></a></h1>
+    </div>
+  </div>
+  <nav>
+    <div class="container_12">
+      <div class="grid_12">
+        <ul class="sf-menu">
+            <li class="current"><a href="StateMst.aspx">STATE</a>
+                <ul>
+              <li><a href="StateSearch.aspx">STATE SEARCH</a></li>
+              <li><a href="StateUpdate.aspx">STATE UPDATE</a></li>
+                </ul>
+            </li>
+          <li><a href="City.aspx">CITY</a>
+              <ul>
+              <li><a href="CitySearch.aspx">CITY SEARCH</a></li>
+              <li><a href="CityUpdate.aspx">CITY UPDATE</a></li>
+            </ul>
+          </li>
+          <li><a href="FileTypeMst.aspx">FILE INFO</a>
+            <ul>
+              <li><a href="FileTypeUpdate.aspx">FILE TYPE UPDATE</a></li>
+            </ul>
+          </li>
+            <li><a href="QuestionMst.aspx">HINTS</a>
+                <ul>
+              <li><a href="QuestionSearchMst.aspx">QUESTION SEARCH</a></li>
+              <li><a href="QuestionUpdateMst.aspx">QUESTION UPDATE</a></li>
+                </ul>
+            </li>
+            <li><a href="../Logout.aspx">Logout</a></li>
+        </ul>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div id="content">
+  <div class="slider-relative">
+    <div class="slider-block">
+      <div class="slider">
+        <ul class="items">
+          <li><img src="images/slide1.jpg" alt=""/>
+            <div class="banner">Get Your Personal Health Record Now</div>
+          </li>
+          <li><img src="images/internet-ipv6.jpg" alt=""/>
+            <div class="banner">Access Your Record Anytime Anywhere</div>
+          </li>
+          <li><img src="images/2.jpg" alt=""/>
+            <div class="banner">Imagination is Our Power</div>
+          </li>
+          <li><img src="images/3.png" alt=""/>
+            <div class="banner">Find The Real Cause Of Your Nagging Symptoms</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container_12">
+    <div class="grid_3 box-1">
+      <div class="wrap"> <img src="images/page1-img1.png" alt=""/>
+        <h4>MEDICATION</h4>
+      </div>
+      This record will help you keep track of your medicines.You can share the record with your doctores,Pharmacists,or other health proffesionals at all visits.</div>
+    <div class="grid_3 box-1">
+      <div class="wrap"> <img src="images/page1-img2.png" alt=""/>
+        <h4>CURRENT ILLNESS</h4>
+      </div>
+      This system will help you record current health issues. You can print or download the record when you are visit your doctor/s or other health professionals.</div>
+    <div class="grid_3 box-1">
+      <div class="wrap"> <img src="images/page1-img3.png" alt=""/>
+        <h4>PAST HEALTH PROBLEM</h4>
+      </div>
+      Your pass health issues can also be recorded. It can be downloaded or printed whenever you visit your doctor, or requested by your attending doctor.</div>
+    <div class="grid_3 box-1">
+      <div class="wrap"> <img src="images/page1-img4.png" alt=""/>
+        <h4>DOCTOR VISIT</h4>
+      </div>
+      This will help you keep track of doctor visits. It also provides free doctor visits reminders through our email and SMS remindering systems.</div>
+    <div class="clear"></div>
+  </div>
+  <div class="bg-1">
+    <div class="container_12">
+      <div class="grid_12">
+        
+      </div>
+    </div>
+  </div>
+  <div class="bg-2">
+    <div class="container_12">
+      <div class="grid_7">
+       
+    <form id="form1" runat="server">
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+            <div class="grid_5">
+                <h2 class="indent-1">Latest News</h2>
+            </div>
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+   </div>
+   <div class="grid_5">
+   <h2 class="indent-1">Latest News</h2>
+        <ul class="list-news">
+          <li>
+            <div class="wrap">
+              <div class="badge">22<span>FEB</span></div>
+              <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="http://www.medicalnewstoday.com/articles/315970.php" Font-Underline="True">Exercise is best for reducing breast cancer recurrence</asp:HyperLink>
+              </div>            
+           </li>
+           <li>
+            <div class="wrap">
+              <div class="badge">23<span>FEB</span></div>
+                <asp:HyperLink ID="HyperLink2" runat="server" Font-Underline="True" NavigateUrl="http://www.medicalnewstoday.com/articles/315981.php">Children inherit around 40 percent of parents&#39; BMI</asp:HyperLink>
+            </div>
+           </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
